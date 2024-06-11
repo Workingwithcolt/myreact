@@ -11,51 +11,48 @@ const Login = () => {
     const[password,setPassword] = useState("");
 
 
-    const createuser = () =>
-        {
+    const createuser = (e) =>{
+          e.preventDefault()
             createUserWithEmailAndPassword(auth,email,password).then(value => alert("success"));
+            //here we passing the email and password and it creates the new user in our firebase account
+            //  and this function of createuserwithemailandpassword returns the promise and it will 
+            //  response back and we are printing it..
+
         }
     
-        useEffect(()=>{
-          onAuthStateChanged(auth,(user)=>{
-    console.log(user)
-          })
-        },[])
+       
     
 
   return (
     <div>
       <div className="login">
         <h4>Login</h4>
-        <form>
+        <form >
+        <label className='label'>Email</label>
+            
           <div className="text_area">
             <input
-              type="text"
-              id="username"
-              name="username"
-              defaultValue="username"
               className="text_input"
-              value={email} onChange={(e)=>setEmail(e.target.value)} 
-
-            />
+              value={email} 
+              type="email" onChange={(e)=>setEmail(e.target.value)}
+              placeholder='Enter your email'/>
           </div>
-          <div className="text_area">
-            <input
-              type="password"
-              id="password"
-              name="password"
-              defaultValue="password"
+
+          <label className='label'>Password</label>
+            
+            <div className="text_area">
+             <input
               className="text_input"
+              value={password} 
+              type="password" 
               onChange={(e)=>setPassword(e.target.value)} 
+              placeholder='Enter your password'/>
+            </div>
 
-            />
-          </div>
-          <input
-            type="submit"
-            value="LOGIN"
+          <button onClick={createuser}
+             type="submit"
             className="btn"
-            onClick={createuser}
-          />
+          >Login</button>
         </form>
         <a className="link" href="/signup">Sign Up</a>
       </div>
@@ -63,6 +60,7 @@ const Login = () => {
 
     </div>
   )
+
 }
 
 export default Login

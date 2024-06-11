@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react'
-import {getAuth,createUserWithEmailAndPassword, onAuthStateChanged} from "firebase/auth"
+import {getAuth,createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword} from "firebase/auth"
 import {app} from "../Components/Firebase"
 import './Signup.css'
 
@@ -11,22 +11,22 @@ const Signup = () => {
     const[email,setEmail] = useState("");
     const[password,setPassword] = useState("");
 
-    const createuser = () =>
-    {
-        createUserWithEmailAndPassword(auth,email,password).then(value => alert("success"));
-    }
+    const signinUser = () =>
+      {
+        signInWithEmailAndPassword(auth,email,password)
+        .then((value) => console.log("Signin success"))
+        .catch((err) =>console.log(err));
+      };
 
-    useEffect(()=>{
-      onAuthStateChanged(auth,(user)=>{
-console.log(user)
-      })
-    },[])
+    // const createuser = () =>
+    // {
+    //     createUserWithEmailAndPassword(auth,email,password).then(value => alert("success"));
+    // }
+
+   
 
   return (
     <div className="signup-page">
-
-      
-      
         <b><label className='label1'>Email</label></b>
         <input value={email} onChange={(e)=>setEmail(e.target.value)} type="email" 
         required placeholder='Enter your email here'/>
@@ -38,7 +38,7 @@ console.log(user)
            required placeholder='Enter your password here'/>
         
 
-        <button className="btn3" onClick={createuser}>Signup</button>
+        <button className="btn3" onClick={signinUser}>Signup</button>
 
     </div>
   )
